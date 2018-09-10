@@ -5,15 +5,8 @@ import de.htwg.gib.egkterminal.model.medikationsplan.MedikationsPlan;
 
 public class Egk {
 
+	private EgkPatient versicherter;
 	private MedikationsPlan medikationsplan;
-
-	public MedikationsPlan getMedikationsplan() {
-		return medikationsplan;
-	}
-
-	public void setMedikationsplan(MedikationsPlan medikationsplan) {
-		this.medikationsplan = medikationsplan;
-	}
 
 	public EgkPatient getVersicherter() {
 		return versicherter;
@@ -23,6 +16,12 @@ public class Egk {
 		this.versicherter = versicherter;
 	}
 
-	private EgkPatient versicherter;
+	public MedikationsPlan getMedikationsplan() {
+		return medikationsplan;
+	}
+
+	public void setMedikationsplan(MedikationsPlan medikationsplan) {
+		this.medikationsplan = medikationsplan;
+	}
 
 }
