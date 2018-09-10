@@ -40,4 +40,9 @@ class EgkInterpreterTest {
 		assertNotNull(egk.getMedikationsplan().getErsteller());
 	}
 
+	@Test
+	void testMedikationsplanInstanzIdVorhanden() {
+		assertTrue(egk.getMedikationsplan().getInstanzId().length() == 32);
+	}
+
 }
