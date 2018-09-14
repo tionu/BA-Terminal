@@ -16,10 +16,10 @@ import org.apache.http.client.utils.URIBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.zxing.WriterException;
 
+import de.gecko.egkfeuer.exception.smartcard.EgkNotFoundException;
 import de.htwg.gib.egkterminal.config.PropertyConfig;
 import de.htwg.gib.egkterminal.logging.Logging;
 import de.htwg.gib.egkterminal.logic.EgkInterpreter;
@@ -76,15 +76,16 @@ public class QrCodeViewController {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
+				Egk egk;
 				ImageIcon qrCode = new ImageIcon();
-
-				Egk egk = egkInterpreter.readEgk();
 
 				ObjectMapper mapper = new ObjectMapper();
 				DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
 				mapper.setDateFormat(df);
 
 				try {
+
+					egk = egkInterpreter.readEgk();
 					String egkJson = mapper.writeValueAsString(egk);
 
 					log.info("transmit egk to gateway server: " + egkJson);
@@ -93,24 +94,24 @@ public class QrCodeViewController {
 
 					qrCodeView.getLblEgkData()
 							.setText("<html>" + egk.getVersicherter().getSurname() + ", "
-									+ egk.getVersicherter().getGivenName() + "<br>Vers.-Nr.: "
+									+ egk.getVersicherter().getGivenName() + "<br>Versichertennummer: "
 									+ egk.getVersicherter().getHealthInsuranceNumber() + "</html>");
 
 					String appServer = propertyConfig.getTerminal().getProperty("app.server");
 					URI qrCodeUrl = new URIBuilder(appServer).setFragment(uuid.toString()).build();
 
 					qrCode = new ImageIcon(QRCodeGenerator.createQRImage(qrCodeUrl.toString()));
-				} catch (WriterException e1) {
-					e1.printStackTrace();
-				} catch (JsonProcessingException e2) {
-					e2.printStackTrace();
-				} catch (IOException e3) {
-					e3.printStackTrace();
-				} catch (URISyntaxException e4) {
-					e4.printStackTrace();
+				} catch (EgkNotFoundException e1) {
+					qrCodeView.getLblEgkData().setText("Keine Karte gefunden.");
+					log.error(e1.toString());
+				} catch (WriterException | IOException | URISyntaxException e2) {
+					qrCodeView.getLblEgkData().setText("");
+					log.error(e2.toString());
 				}
+
 				qrCodeView.getLblQrCode().setIcon(qrCode);
 			}
+
 		});
 
 	}

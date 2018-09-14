@@ -14,7 +14,7 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
 public class QRCodeGenerator {
 
-	private static final int DEFAULT_QR_CODE_SIZE = 150;
+	private static final int DEFAULT_QR_CODE_SIZE = 280;
 
 	public static BufferedImage createQRImage(String qrCodeText) throws WriterException {
 		return createQRImage(qrCodeText, DEFAULT_QR_CODE_SIZE);

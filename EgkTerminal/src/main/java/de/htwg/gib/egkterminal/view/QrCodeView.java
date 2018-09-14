@@ -26,14 +26,14 @@ public class QrCodeView extends JFrame {
 		setBackground(Color.WHITE);
 		setTitle("eGK");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 240, 240);
+		setBounds(100, 100, 360, 360);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(5, 5));
 
-		btnEgkEinlesen = new JButton("eGK einlesen");
+		btnEgkEinlesen = new JButton("Gesundheitskarte einlesen");
 		contentPane.add(btnEgkEinlesen, BorderLayout.SOUTH);
 
 		lblQrCode = new JLabel("");
