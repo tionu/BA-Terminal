@@ -23,6 +23,7 @@ class GatewayTransmitterTest {
 	@Test
 	void testReceiveValidUuidFromGatewayServer() throws IOException {
 		UUID uuid = gatewayTransmitter.transmit(new CipherObject("testData"));
+		
 		assertTrue(uuid.toString().length() == 36);
 	}
 

@@ -40,6 +40,7 @@ public class GatewayTransmitter {
 
 	private URI gatewayServer;
 	private ObjectMapper mapper;
+	private CloseableHttpClient httpClient;
 
 	public GatewayTransmitter() {
 
@@ -49,9 +50,10 @@ public class GatewayTransmitter {
 			e.printStackTrace();
 		}
 
-		mapper = new ObjectMapper();
+		this.mapper = new ObjectMapper();
 		DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
-		mapper.setDateFormat(df);
+		this.mapper.setDateFormat(df);
+		this.httpClient = HttpClients.createDefault();
 	}
 
 	public UUID transmit(CipherObject cipherObject) throws IOException {
@@ -60,7 +62,6 @@ public class GatewayTransmitter {
 		String cipherJson = mapper.writeValueAsString(cipherObject);
 		log.info("post: " + cipherJson);
 
-		CloseableHttpClient httpClient = HttpClients.createDefault();
 		HttpPost httpPost = new HttpPost(gatewayServer);
 		StringEntity entity = new StringEntity(cipherJson);
 		httpPost.setEntity(entity);
@@ -70,6 +71,7 @@ public class GatewayTransmitter {
 
 		JsonReader jsonReader = Json.createReader(response.getEntity().getContent());
 		JsonObject jsonReponse = jsonReader.readObject();
+		response.close();
 
 		log.info("response: " + jsonReponse);
 
