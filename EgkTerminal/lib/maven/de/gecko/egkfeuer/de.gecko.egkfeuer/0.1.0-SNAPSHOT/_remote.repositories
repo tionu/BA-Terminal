@@ -1,4 +1,6 @@
 #NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
-#Mon Sep 10 21:05:30 CEST 2018
+#Fri Sep 14 14:25:10 CEST 2018
 de.gecko.egkfeuer-0.1.0-SNAPSHOT.jar>=
 de.gecko.egkfeuer-0.1.0-SNAPSHOT.pom>=
+de.gecko.egkfeuer-0.1.0-SNAPSHOT.jar>local\ project\ repository=
+de.gecko.egkfeuer-0.1.0-SNAPSHOT.pom>local\ project\ repository=
