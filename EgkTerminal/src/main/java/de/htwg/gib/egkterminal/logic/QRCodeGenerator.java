@@ -1,4 +1,4 @@
-package de.htwg.gib.egkterminal.controller;
+package de.htwg.gib.egkterminal.logic;
 
 import java.awt.Color;
 import java.awt.Graphics2D;

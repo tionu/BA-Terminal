@@ -1,4 +1,4 @@
-package de.htwg.gib.egkterminal.controller;
+package de.htwg.gib.egkterminal.logic;
 
 import de.gecko.egkfeuer.model.ekg.DelegatingToPatientConverter;
 import de.gecko.egkfeuer.model.ekg.v51.ToPatientConverterV51;

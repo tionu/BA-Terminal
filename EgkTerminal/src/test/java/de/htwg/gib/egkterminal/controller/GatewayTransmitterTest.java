@@ -8,6 +8,7 @@ import java.util.UUID;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import de.htwg.gib.egkterminal.logic.GatewayTransmitter;
 import de.htwg.gib.egkterminal.model.CipherObject;
 
 class GatewayTransmitterTest {

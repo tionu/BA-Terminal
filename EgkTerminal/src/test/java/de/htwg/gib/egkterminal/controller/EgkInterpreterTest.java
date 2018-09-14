@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import de.htwg.gib.egkterminal.logic.EgkInterpreter;
 import de.htwg.gib.egkterminal.model.Egk;
 
 class EgkInterpreterTest {
