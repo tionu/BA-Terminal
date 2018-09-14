@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+	<Appenders>
+		<Console name="console_appender" target="SYSTEM_OUT">
+			<PatternLayout pattern="%msg%n" />
+		</Console>
+		<Console name="console_verbose_appender" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{YYYY-MM-dd HH:mm:ss.SSS} %-5level %l - %msg%n" />
+		</Console>
+		<File name="csv_appender" fileName="log.csv">
+			<CsvParameterLayout delimiter=";" />
+		</File>
+		<File name="csv_appender_error" fileName="log.csv">
+			<CsvParameterLayout delimiter=";" />
+			<ThresholdFilter level="ERROR" onMatch="ACCEPT"
+				onMismatch="DENY" />
+		</File>
+	</Appenders>
+	<Loggers>
+		<Logger name="console">
+			<AppenderRef ref="console_appender" />
+		</Logger>
+		<Logger name="console_verbose">
+			<AppenderRef ref="console_verbose_appender" />
+		</Logger>
+		<Logger name="csv">
+			<AppenderRef ref="csv_appender" />
+		</Logger>
+		<Logger name="csv+console">
+			<AppenderRef ref="csv_appender" />
+			<AppenderRef ref="console_appender" />
+		</Logger>
+		<Logger name="csv+console_verbose">
+			<AppenderRef ref="csv_appender" />
+			<AppenderRef ref="console_verbose_appender" />
+		</Logger>
+		<Logger name="csv_error+console">
+			<AppenderRef ref="csv_appender_error" />
+			<AppenderRef ref="console_appender" />
+		</Logger>
+		<Root level="ALL">
+		</Root>
+	</Loggers>
+</Configuration>

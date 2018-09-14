@@ -14,7 +14,7 @@ class EgkInterpreterTest {
 	private static Egk egk;
 
 	@BeforeAll
-	static void setup() {
+	static void setUpBeforeClass() {
 		egkInterpreter = new EgkInterpreter();
 		egk = egkInterpreter.readEgk();
 	}
