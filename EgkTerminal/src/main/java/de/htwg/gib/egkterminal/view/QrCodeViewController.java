@@ -44,12 +44,14 @@ public class QrCodeViewController {
 	private QrCodeView qrCodeView;
 	private EgkInterpreter egkInterpreter;
 	private GatewayTransmitter gatewayTransmitter;
+	private String appServer;
 
 	public QrCodeViewController() {
 		super();
 		this.egkInterpreter = new EgkInterpreter();
 		this.qrCodeView = new QrCodeView();
 		this.gatewayTransmitter = new GatewayTransmitter();
+		this.appServer = propertyConfig.getTerminal().getProperty("app.server");
 		initialize();
 	}
 
@@ -84,23 +86,23 @@ public class QrCodeViewController {
 				mapper.setDateFormat(df);
 
 				try {
-
 					egk = egkInterpreter.readEgk();
-					String egkJson = mapper.writeValueAsString(egk);
-
-					log.info("transmit egk to gateway server: " + egkJson);
-
-					UUID uuid = gatewayTransmitter.transmit(new CipherObject(egkJson));
 
 					qrCodeView.getLblEgkData()
 							.setText("<html>" + egk.getVersicherter().getSurname() + ", "
 									+ egk.getVersicherter().getGivenName() + "<br>Versichertennummer: "
 									+ egk.getVersicherter().getHealthInsuranceNumber() + "</html>");
 
-					String appServer = propertyConfig.getTerminal().getProperty("app.server");
+					String egkJson = mapper.writeValueAsString(egk);
+
+					log.info("egk data: " + egkJson);
+
+					UUID uuid = gatewayTransmitter.transmit(new CipherObject(egkJson));
+
 					URI qrCodeUrl = new URIBuilder(appServer).setFragment(uuid.toString()).build();
 
 					qrCode = new ImageIcon(QRCodeGenerator.createQRImage(qrCodeUrl.toString()));
+
 				} catch (EgkNotFoundException e1) {
 					qrCodeView.getLblEgkData().setText("Keine Karte gefunden.");
 					log.error(e1.toString());
