@@ -1,6 +1,8 @@
 package de.htwg.gib.egkterminal.persistence;
 
-import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Random;
@@ -10,6 +12,9 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
+import org.apache.commons.io.Charsets;
+import org.apache.commons.io.IOUtils;
+
 import de.htwg.gib.egkterminal.model.medikationsplan.Medikation;
 import de.htwg.gib.egkterminal.model.medikationsplan.MedikationsPlan;
 import de.htwg.gib.egkterminal.model.medikationsplan.Wirkstoff;
@@ -18,8 +23,7 @@ import de.htwg.gib.egkterminal.model.medikationsplan.arzneimittel.ArzneimittelLi
 
 public class MedikationsplanProvider {
 
-	private static final String TESTPAKET_PATH = "src/test/resources/de/htwg/gib/egkterminal/model/medikationsplan/testpaket";
-
+	private static final String TESTPAKET_PATH = "/model/medikationsplan/testpaket/";
 	private ZwischenueberschriftenMapper zwischenueberschriften;
 	private DosiereinheitenMapper dosiereinheiten;
 	private DarreichungsformenMapper darreichungsformen;
@@ -34,15 +38,22 @@ public class MedikationsplanProvider {
 
 	public MedikationsPlan getMedikationsplan() {
 
-		MedikationsPlan testPlan = null;
-		File[] testFiles = new File(TESTPAKET_PATH).listFiles();
+		List<String> testFiles = new ArrayList<>();
+		try {
+			testFiles = IOUtils.readLines(getClass().getResourceAsStream(TESTPAKET_PATH), Charsets.UTF_8);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+
+		String randomTestFile = testFiles.get(new Random().nextInt(testFiles.size()));
+		MedikationsPlan testPlan = new MedikationsPlan();
 		JAXBContext jc;
 
-		try {
+		try (InputStream source = getClass().getResourceAsStream(TESTPAKET_PATH + randomTestFile)) {
 			jc = JAXBContext.newInstance(MedikationsPlan.class);
 			Unmarshaller unmarshaller = jc.createUnmarshaller();
-			testPlan = (MedikationsPlan) unmarshaller.unmarshal(testFiles[new Random().nextInt(testFiles.length)]);
-		} catch (JAXBException e) {
+			testPlan = (MedikationsPlan) unmarshaller.unmarshal(source);
+		} catch (JAXBException | IOException e) {
 			e.printStackTrace();
 		}
 		decodeZwischenueberschriften(testPlan);

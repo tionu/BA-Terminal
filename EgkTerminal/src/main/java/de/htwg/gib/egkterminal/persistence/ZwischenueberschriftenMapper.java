@@ -1,6 +1,7 @@
 package de.htwg.gib.egkterminal.persistence;
 
-import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,20 +14,19 @@ import de.htwg.gib.egkterminal.model.medikationsplan.zwischenueberschrift.Zwisch
 
 public class ZwischenueberschriftenMapper {
 
-	private static final File ZWISCHENUEBERSCHRIFTEN_XML = new File(
-			"src/main/resources/de/htwg/gib/egkterminal/model/medikationsplan/zwischenueberschrift/S_BMP_ZWISCHENUEBERSCHRIFT_V1.01.xml");
+	private static final String ZWISCHENUEBERSCHRIFTEN_XML = "/model/medikationsplan/zwischenueberschrift/S_BMP_ZWISCHENUEBERSCHRIFT_V1.01.xml";
 	private List<Zwischenueberschrift> zwischenueberschriftKodierungen;
 
 	public ZwischenueberschriftenMapper() {
 		zwischenueberschriftKodierungen = new ArrayList<>();
 		Zwischenueberschriften zwischenueberschriften = null;
 		JAXBContext jc;
-		try {
+		try (InputStream source = getClass().getResourceAsStream(ZWISCHENUEBERSCHRIFTEN_XML)) {
 			jc = JAXBContext.newInstance(Zwischenueberschriften.class);
 			Unmarshaller unmarshaller = jc.createUnmarshaller();
-			zwischenueberschriften = (Zwischenueberschriften) unmarshaller.unmarshal(ZWISCHENUEBERSCHRIFTEN_XML);
+			zwischenueberschriften = (Zwischenueberschriften) unmarshaller.unmarshal(source);
 			zwischenueberschriftKodierungen = zwischenueberschriften.getSchluesseltabelle().getKodierungen();
-		} catch (JAXBException e) {
+		} catch (JAXBException | IOException e) {
 			e.printStackTrace();
 		}
 	}

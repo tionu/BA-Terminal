@@ -22,20 +22,10 @@ public class PropertyConfig {
 
 	private Properties loadPropertyFile(String path) {
 		Properties properties = new Properties();
-		InputStream source = null;
-		try {
-			source = getClass().getResourceAsStream(path);
+		try (InputStream source = getClass().getResourceAsStream(path)) {
 			properties.load(source);
 		} catch (IOException ex) {
 			ex.printStackTrace();
-		} finally {
-			if (source != null) {
-				try {
-					source.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
 		}
 		return properties;
 	}

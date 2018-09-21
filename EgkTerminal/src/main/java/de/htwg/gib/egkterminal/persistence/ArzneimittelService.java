@@ -1,6 +1,7 @@
 package de.htwg.gib.egkterminal.persistence;
 
-import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,18 +14,17 @@ import de.htwg.gib.egkterminal.model.medikationsplan.arzneimittel.ArzneimittelLi
 
 public class ArzneimittelService {
 
-	private static final File ARZNEIMITTEL_XML = new File(
-			"src/main/resources/de/htwg/gib/egkterminal/model/medikationsplan/arzneimittel/ArzneimittelListe.xml");
+	private static final String ARZNEIMITTEL_XML = "/model/medikationsplan/arzneimittel/ArzneimittelListe.xml";
 	private List<Arzneimittel> arzneimittelListe;
 
 	public ArzneimittelService() {
 		arzneimittelListe = new ArrayList<>();
 		JAXBContext jc;
-		try {
+		try (InputStream source = getClass().getResourceAsStream(ARZNEIMITTEL_XML)) {
 			jc = JAXBContext.newInstance(ArzneimittelListe.class);
 			Unmarshaller unmarshaller = jc.createUnmarshaller();
-			arzneimittelListe = ((ArzneimittelListe) unmarshaller.unmarshal(ARZNEIMITTEL_XML)).getArzneimittelListe();
-		} catch (JAXBException e) {
+			arzneimittelListe = ((ArzneimittelListe) unmarshaller.unmarshal(source)).getArzneimittelListe();
+		} catch (JAXBException | IOException e) {
 			e.printStackTrace();
 		}
 	}

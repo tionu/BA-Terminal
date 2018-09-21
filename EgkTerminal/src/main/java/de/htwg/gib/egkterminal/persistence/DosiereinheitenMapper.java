@@ -1,6 +1,7 @@
 package de.htwg.gib.egkterminal.persistence;
 
-import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,20 +14,19 @@ import de.htwg.gib.egkterminal.model.medikationsplan.dosiereinheit.Dosiereinheit
 
 public class DosiereinheitenMapper {
 
-	private static final File DOSIEREINHEITEN_XML = new File(
-			"src/main/resources/de/htwg/gib/egkterminal/model/medikationsplan/dosiereinheit/S_BMP_DOSIEREINHEIT_V1.01.xml");
+	private static final String DOSIEREINHEITEN_XML = "/model/medikationsplan/dosiereinheit/S_BMP_DOSIEREINHEIT_V1.01.xml";
 	private List<Dosiereinheit> dosiereinheitKodierungen;
 
 	public DosiereinheitenMapper() {
 		dosiereinheitKodierungen = new ArrayList<>();
 		Dosiereinheiten dosiereinheiten = null;
 		JAXBContext jc;
-		try {
+		try (InputStream source = getClass().getResourceAsStream(DOSIEREINHEITEN_XML)) {
 			jc = JAXBContext.newInstance(Dosiereinheiten.class);
 			Unmarshaller unmarshaller = jc.createUnmarshaller();
-			dosiereinheiten = (Dosiereinheiten) unmarshaller.unmarshal(DOSIEREINHEITEN_XML);
+			dosiereinheiten = (Dosiereinheiten) unmarshaller.unmarshal(source);
 			dosiereinheitKodierungen = dosiereinheiten.getSchluesseltabelle().getKodierungen();
-		} catch (JAXBException e) {
+		} catch (JAXBException | IOException e) {
 			e.printStackTrace();
 		}
 	}

@@ -1,6 +1,7 @@
 package de.htwg.gib.egkterminal.persistence;
 
-import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,20 +14,19 @@ import de.htwg.gib.egkterminal.model.medikationsplan.darreichungsform.Darreichun
 
 public class DarreichungsformenMapper {
 
-	private static final File DARREICHUNGSFORMEN_XML = new File(
-			"src/main/resources/de/htwg/gib/egkterminal/model/medikationsplan/darreichungsform/S_BMP_DARREICHUNGSFORM_V1.02.xml");
+	private static final String DARREICHUNGSFORMEN_XML = "/model/medikationsplan/darreichungsform/S_BMP_DARREICHUNGSFORM_V1.02.xml";
 	private List<Darreichungsform> darreichungsformKodierungen;
 
 	public DarreichungsformenMapper() {
 		darreichungsformKodierungen = new ArrayList<>();
 		Darreichungsformen darreichungsformen = null;
 		JAXBContext jc;
-		try {
+		try (InputStream source = getClass().getResourceAsStream(DARREICHUNGSFORMEN_XML)) {
 			jc = JAXBContext.newInstance(Darreichungsformen.class);
 			Unmarshaller unmarshaller = jc.createUnmarshaller();
-			darreichungsformen = (Darreichungsformen) unmarshaller.unmarshal(DARREICHUNGSFORMEN_XML);
+			darreichungsformen = (Darreichungsformen) unmarshaller.unmarshal(source);
 			darreichungsformKodierungen = darreichungsformen.getSchluesseltabelle().getKodierungen();
-		} catch (JAXBException e) {
+		} catch (JAXBException | IOException e) {
 			e.printStackTrace();
 		}
 	}
