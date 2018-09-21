@@ -1,5 +1,5 @@
 /* tslint:disable */
-// Generated using typescript-generator version 2.6.433 on 2018-09-18 21:16:24.
+// Generated using typescript-generator version 2.6.433 on 2018-09-19 14:32:52.
 
 interface Egk {
     versicherter: EgkPatient;

@@ -44,7 +44,7 @@ class GatewayTransmitterMockTest {
 		when(response.getEntity()).thenReturn(entity);
 		when(httpClient.execute(any(HttpPost.class))).thenReturn(response);
 
-		UUID uuid = gatewayTransmitter.transmit(new CipherObject("testData"));
+		UUID uuid = gatewayTransmitter.post(new CipherObject("cipherText", "nonce"));
 
 		assertTrue(uuid.toString().length() == 36);
 	}

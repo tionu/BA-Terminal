@@ -12,19 +12,20 @@ import de.htwg.gib.egkterminal.persistence.MedikationsplanProvider;
 public class EgkInterpreter {
 
 	private Egk egk;
-
 	private CardReaderService cardReaderService;
+	private MedikationsplanProvider medikationsplanProvider;
 
 	public EgkInterpreter() {
 		cardReaderService = new CardReaderServiceImpl(
 				new DelegatingToPatientConverter(new ToPatientConverterV51(), new ToPatientConverterV52()),
 				new CardTerminalsServiceImpl());
+		medikationsplanProvider = new MedikationsplanProvider();
 	}
 
 	public Egk readEgk() {
 		egk = new Egk();
 		egk.setVersicherter(cardReaderService.read());
-		egk.setMedikationsplan(MedikationsplanProvider.getMedikationsplan());
+		egk.setMedikationsplan(medikationsplanProvider.getMedikationsplan());
 		return egk;
 	}
 

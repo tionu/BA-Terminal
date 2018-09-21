@@ -1,24 +1,43 @@
 package de.htwg.gib.egkterminal.persistence;
 
 import java.io.File;
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
+import de.htwg.gib.egkterminal.model.medikationsplan.Medikation;
 import de.htwg.gib.egkterminal.model.medikationsplan.MedikationsPlan;
+import de.htwg.gib.egkterminal.model.medikationsplan.Wirkstoff;
+import de.htwg.gib.egkterminal.model.medikationsplan.arzneimittel.ArzneimittelListe.Arzneimittel;
+import de.htwg.gib.egkterminal.model.medikationsplan.arzneimittel.ArzneimittelListe.Arzneimittel.Arzneistoff;
 
 public class MedikationsplanProvider {
 
-	private static MedikationsPlan testPlan;
+	private static final String TESTPAKET_PATH = "src/test/resources/de/htwg/gib/egkterminal/model/medikationsplan/testpaket";
 
-	private static String testPaketPath = "src/test/resources/de/htwg/gib/egkterminal/model/medikationsplan/testpaket";
+	private ZwischenueberschriftenMapper zwischenueberschriften;
+	private DosiereinheitenMapper dosiereinheiten;
+	private DarreichungsformenMapper darreichungsformen;
+	private ArzneimittelService arzneimittelService;
 
-	public static MedikationsPlan getMedikationsplan() {
+	public MedikationsplanProvider() {
+		zwischenueberschriften = new ZwischenueberschriftenMapper();
+		dosiereinheiten = new DosiereinheitenMapper();
+		darreichungsformen = new DarreichungsformenMapper();
+		arzneimittelService = new ArzneimittelService();
+	}
 
-		File[] testFiles = new File(testPaketPath).listFiles();
+	public MedikationsPlan getMedikationsplan() {
+
+		MedikationsPlan testPlan = null;
+		File[] testFiles = new File(TESTPAKET_PATH).listFiles();
 		JAXBContext jc;
+
 		try {
 			jc = JAXBContext.newInstance(MedikationsPlan.class);
 			Unmarshaller unmarshaller = jc.createUnmarshaller();
@@ -26,7 +45,71 @@ public class MedikationsplanProvider {
 		} catch (JAXBException e) {
 			e.printStackTrace();
 		}
+		decodeZwischenueberschriften(testPlan);
+		decodeArzneimittel(testPlan);
 		return testPlan;
+	}
+
+	private void decodeZwischenueberschriften(MedikationsPlan plan) {
+		plan.getBlock().stream().filter(block -> (block.getZwischenueberschrift() != null)).forEach(block -> {
+			block.setZwischenueberschriftFreitext(
+					zwischenueberschriften.getUeberschrift(block.getZwischenueberschrift()));
+			block.setZwischenueberschrift(null);
+		});
+	}
+
+	private void decodeArzneimittel(MedikationsPlan plan) {
+		plan.getBlock().forEach(block -> {
+			block.getMedikationFreitextRezeptur().stream().filter(item -> (item instanceof Medikation))
+					.collect(Collectors.toSet()).forEach(item -> {
+						Medikation medikation = (Medikation) item;
+						decodeDosiereinheit(medikation);
+						decodeDarreichungsform(medikation);
+						try {
+							decodePharmazentralnummer(medikation);
+						} catch (NoSuchElementException e) {
+							System.out.println(e.getMessage());
+							block.getMedikationFreitextRezeptur().remove(item);
+						}
+					});
+		});
+	}
+
+	private void decodePharmazentralnummer(Medikation medikation) {
+		if (medikation.getPharmazentralnummer() != null) {
+			Arzneimittel arzneimittel = arzneimittelService
+					.getArzneimittel(medikation.getPharmazentralnummer().toString());
+			if (arzneimittel == null) {
+				throw new NoSuchElementException("Pharmazentralnummer nicht im Arzneimittelverzeichnis gefunden: "
+						+ medikation.getPharmazentralnummer());
+			}
+			medikation.setHandelsname(arzneimittel.getHandelsname());
+			List<Wirkstoff> wirkstoffe = arzneimittel.getArzneistoffe().stream()
+					.map(arzneistoff -> convertToWirkstoff(arzneistoff)).collect(Collectors.toList());
+			medikation.getWirkstoff().addAll(wirkstoffe);
+		}
+	}
+
+	private void decodeDarreichungsform(Medikation medikation) {
+		if (medikation.getDarreichungsformCode() != null) {
+			medikation.setDarreichungsformFreitext(
+					darreichungsformen.getBezeichnungIFA(medikation.getDarreichungsformCode()));
+			medikation.setDarreichungsformCode(null);
+		}
+	}
+
+	private void decodeDosiereinheit(Medikation medikation) {
+		if (medikation.getDosiereinheitCode() != null) {
+			medikation.setDosiereinheitFreitext(dosiereinheiten.getEinheit(medikation.getDosiereinheitCode()));
+			medikation.setDosiereinheitCode(null);
+		}
+	}
+
+	private Wirkstoff convertToWirkstoff(Arzneistoff arzneistoff) {
+		Wirkstoff wirkstoff = new Wirkstoff();
+		wirkstoff.setWirkstoff(arzneistoff.getWirkstoff());
+		wirkstoff.setWirkstaerke(arzneistoff.getWirkstaerke());
+		return wirkstoff;
 	}
 
 }

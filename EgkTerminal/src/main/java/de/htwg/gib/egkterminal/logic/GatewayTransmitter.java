@@ -56,11 +56,10 @@ public class GatewayTransmitter {
 		this.httpClient = HttpClients.createDefault();
 	}
 
-	public UUID transmit(CipherObject cipherObject) throws IOException {
+	public UUID post(CipherObject cipherObject) throws IOException {
 		log.info("transmit cipher object to gateway server: " + gatewayServer.toString());
 
 		String cipherJson = mapper.writeValueAsString(cipherObject);
-		log.info("post: " + cipherJson);
 
 		HttpPost httpPost = new HttpPost(gatewayServer);
 		StringEntity entity = new StringEntity(cipherJson);

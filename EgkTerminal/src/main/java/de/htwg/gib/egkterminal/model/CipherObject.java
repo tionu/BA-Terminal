@@ -2,18 +2,28 @@ package de.htwg.gib.egkterminal.model;
 
 public class CipherObject {
 
-	private String data;
+	private String ciphertext;
+	private String nonce;
 
-	public CipherObject(String data) {
-		this.data = data;
+	public CipherObject(String ciphertext, String nonce) {
+		this.ciphertext = ciphertext;
+		this.nonce = nonce;
 	}
 
-	public String getData() {
-		return data;
+	public String getCiphertext() {
+		return ciphertext;
 	}
 
-	public void setDatat(String data) {
-		this.data = data;
+	public void setCiphertext(String ciphertext) {
+		this.ciphertext = ciphertext;
+	}
+
+	public String getNonce() {
+		return nonce;
+	}
+
+	public void setNonce(String nonce) {
+		this.nonce = nonce;
 	}
 
 }

@@ -6,10 +6,17 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.UUID;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.swing.ImageIcon;
 
 import org.apache.http.client.utils.URIBuilder;
@@ -22,6 +29,7 @@ import com.google.zxing.WriterException;
 import de.gecko.egkfeuer.exception.smartcard.EgkNotFoundException;
 import de.htwg.gib.egkterminal.config.PropertyConfig;
 import de.htwg.gib.egkterminal.logging.Logging;
+import de.htwg.gib.egkterminal.logic.CryptoController;
 import de.htwg.gib.egkterminal.logic.EgkInterpreter;
 import de.htwg.gib.egkterminal.logic.GatewayTransmitter;
 import de.htwg.gib.egkterminal.logic.QRCodeGenerator;
@@ -95,13 +103,26 @@ public class QrCodeViewController {
 
 					String egkJson = mapper.writeValueAsString(egk);
 
-					log.info("egk data: " + egkJson);
+					CryptoController crypto = new CryptoController();
+					byte[] key = crypto.createRandomKey();
+					CipherObject cipherObject;
 
-					UUID uuid = gatewayTransmitter.transmit(new CipherObject(egkJson));
+					try {
+						cipherObject = crypto.encrypt(egkJson, key);
+					} catch (InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException
+							| InvalidAlgorithmParameterException | IllegalBlockSizeException | BadPaddingException e1) {
+						log.error("error encrypting egk object.");
+						e1.printStackTrace();
+						qrCodeView.getLblEgkData().setText("Verarbeitungsfehler.");
+						return;
+					}
 
-					URI qrCodeUrl = new URIBuilder(appServer).setFragment(uuid.toString()).build();
+					UUID uuid = gatewayTransmitter.post(cipherObject);
 
-					qrCode = new ImageIcon(QRCodeGenerator.createQRImage(qrCodeUrl.toString()));
+					String accessToken = uuid.toString() + Base64.getEncoder().encodeToString(key);
+					log.info("accesToken=" + accessToken);
+					URI qrCodeUri = new URIBuilder(appServer).setFragment(accessToken).build();
+					qrCode = new ImageIcon(QRCodeGenerator.createQRImage(qrCodeUri.toString()));
 
 				} catch (EgkNotFoundException e1) {
 					qrCodeView.getLblEgkData().setText("Keine Karte gefunden.");
