@@ -16,7 +16,7 @@ import de.htwg.gib.egkterminal.model.medikationsplan.MedikationsPlan;
 import de.htwg.gib.egkterminal.model.medikationsplan.Wirkstoff;
 import de.htwg.gib.egkterminal.model.medikationsplan.arzneimittel.ArzneimittelListe.Arzneimittel;
 import de.htwg.gib.egkterminal.model.medikationsplan.arzneimittel.ArzneimittelListe.Arzneimittel.Arzneistoff;
-import tools.Tools;
+import de.htwg.gib.egkterminal.tools.Tools;
 
 public class MedikationsplanProvider {
 

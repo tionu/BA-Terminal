@@ -1,4 +1,4 @@
-package tools;
+package de.htwg.gib.egkterminal.tools;
 
 import java.io.IOException;
 import java.net.URI;
