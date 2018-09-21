@@ -2,7 +2,6 @@ package de.htwg.gib.egkterminal.persistence;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Random;
@@ -12,14 +11,12 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
-import org.apache.commons.io.Charsets;
-import org.apache.commons.io.IOUtils;
-
 import de.htwg.gib.egkterminal.model.medikationsplan.Medikation;
 import de.htwg.gib.egkterminal.model.medikationsplan.MedikationsPlan;
 import de.htwg.gib.egkterminal.model.medikationsplan.Wirkstoff;
 import de.htwg.gib.egkterminal.model.medikationsplan.arzneimittel.ArzneimittelListe.Arzneimittel;
 import de.htwg.gib.egkterminal.model.medikationsplan.arzneimittel.ArzneimittelListe.Arzneimittel.Arzneistoff;
+import tools.Tools;
 
 public class MedikationsplanProvider {
 
@@ -38,13 +35,7 @@ public class MedikationsplanProvider {
 
 	public MedikationsPlan getMedikationsplan() {
 
-		List<String> testFiles = new ArrayList<>();
-		try {
-			testFiles = IOUtils.readLines(getClass().getResourceAsStream(TESTPAKET_PATH), Charsets.UTF_8);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-
+		List<String> testFiles = Tools.listResourceFiles(TESTPAKET_PATH);
 		String randomTestFile = testFiles.get(new Random().nextInt(testFiles.size()));
 		MedikationsPlan testPlan = new MedikationsPlan();
 		JAXBContext jc;
