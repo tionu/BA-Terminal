@@ -68,7 +68,6 @@ public class MedikationsplanProvider {
 						try {
 							decodePharmazentralnummer(medikation);
 						} catch (NoSuchElementException e) {
-							System.out.println(e.getMessage());
 							block.getMedikationFreitextRezeptur().remove(item);
 						}
 					});

@@ -5,22 +5,24 @@
 // Generated on: 2018.09.10 at 05:16:36 PM MESZ 
 //
 
-
 package de.htwg.gib.egkterminal.model.medikationsplan;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for anonymous complex type.
+ * <p>
+ * Java class for anonymous complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -143,405 +145,347 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "wirkstoff"
-})
+@XmlType(name = "", propOrder = { "wirkstoff" })
 public class Medikation {
 
-    @XmlElement(name = "W")
-    protected List<Wirkstoff> wirkstoff;
-    @XmlAttribute(name = "p")
-    protected Integer pharmazentralnummer;
-    @XmlAttribute(name = "a")
-    protected String handelsname;
-    @XmlAttribute(name = "f")
-    protected String darreichungsformCode;
-    @XmlAttribute(name = "fd")
-    protected String darreichungsformFreitext;
-    @XmlAttribute(name = "m")
-    protected String dosierschemaMorgens;
-    @XmlAttribute(name = "d")
-    protected String dosierschemaMittags;
-    @XmlAttribute(name = "v")
-    protected String dosierschemaAbends;
-    @XmlAttribute(name = "h")
-    protected String dosierschemaNachts;
-    @XmlAttribute(name = "t")
-    protected String dosierschemaFreitext;
-    @XmlAttribute(name = "du")
-    protected String dosiereinheitCode;
-    @XmlAttribute(name = "dud")
-    protected String dosiereinheitFreitext;
-    @XmlAttribute(name = "i")
-    protected String hinweise;
-    @XmlAttribute(name = "r")
-    protected String behandlungsgrund;
-    @XmlAttribute(name = "x")
-    protected String zusatzzeile;
+	@XmlElement(name = "W")
+	protected List<Wirkstoff> wirkstoff;
+	@XmlAttribute(name = "p")
+	protected Integer pharmazentralnummer;
+	@XmlAttribute(name = "a")
+	protected String handelsname;
+	@XmlAttribute(name = "f")
+	protected String darreichungsformCode;
+	@XmlAttribute(name = "fd")
+	protected String darreichungsformFreitext;
+	@XmlAttribute(name = "m")
+	protected String dosierschemaMorgens;
+	@XmlAttribute(name = "d")
+	protected String dosierschemaMittags;
+	@XmlAttribute(name = "v")
+	protected String dosierschemaAbends;
+	@XmlAttribute(name = "h")
+	protected String dosierschemaNachts;
+	@XmlAttribute(name = "t")
+	protected String dosierschemaFreitext;
+	@XmlAttribute(name = "du")
+	protected String dosiereinheitCode;
+	@XmlAttribute(name = "dud")
+	protected String dosiereinheitFreitext;
+	@XmlAttribute(name = "i")
+	protected String hinweise;
+	@XmlAttribute(name = "r")
+	protected String behandlungsgrund;
+	@XmlAttribute(name = "x")
+	protected String zusatzzeile;
 
-    /**
-     * Gets the value of the wirkstoff property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the wirkstoff property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getWirkstoff().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link Wirkstoff }
-     * 
-     * 
-     */
-    public List<Wirkstoff> getWirkstoff() {
-        if (wirkstoff == null) {
-            wirkstoff = new ArrayList<Wirkstoff>();
-        }
-        return this.wirkstoff;
-    }
+	/**
+	 * Gets the value of the wirkstoff property.
+	 * 
+	 * <p>
+	 * This accessor method returns a reference to the live list, not a snapshot.
+	 * Therefore any modification you make to the returned list will be present
+	 * inside the JAXB object. This is why there is not a <CODE>set</CODE> method
+	 * for the wirkstoff property.
+	 * 
+	 * <p>
+	 * For example, to add a new item, do as follows:
+	 * 
+	 * <pre>
+	 * getWirkstoff().add(newItem);
+	 * </pre>
+	 * 
+	 * 
+	 * <p>
+	 * Objects of the following type(s) are allowed in the list {@link Wirkstoff }
+	 * 
+	 * 
+	 */
+	public List<Wirkstoff> getWirkstoff() {
+		if (wirkstoff == null) {
+			wirkstoff = new ArrayList<Wirkstoff>();
+		}
+		return this.wirkstoff;
+	}
 
-    /**
-     * Gets the value of the pharmazentralnummer property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
-    public Integer getPharmazentralnummer() {
-        return pharmazentralnummer;
-    }
+	/**
+	 * Gets the value of the pharmazentralnummer property.
+	 * 
+	 * @return possible object is {@link Integer }
+	 * 
+	 */
+	public Integer getPharmazentralnummer() {
+		return pharmazentralnummer;
+	}
 
-    /**
-     * Sets the value of the pharmazentralnummer property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
-    public void setPharmazentralnummer(Integer value) {
-        this.pharmazentralnummer = value;
-    }
+	/**
+	 * Sets the value of the pharmazentralnummer property.
+	 * 
+	 * @param value allowed object is {@link Integer }
+	 * 
+	 */
+	public void setPharmazentralnummer(Integer value) {
+		this.pharmazentralnummer = value;
+	}
 
-    /**
-     * Gets the value of the handelsname property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getHandelsname() {
-        return handelsname;
-    }
+	/**
+	 * Gets the value of the handelsname property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getHandelsname() {
+		return handelsname;
+	}
 
-    /**
-     * Sets the value of the handelsname property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setHandelsname(String value) {
-        this.handelsname = value;
-    }
+	/**
+	 * Sets the value of the handelsname property.
+	 * 
+	 * @param value allowed object is {@link String }
+	 * 
+	 */
+	public void setHandelsname(String value) {
+		this.handelsname = value;
+	}
 
-    /**
-     * Gets the value of the darreichungsformCode property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getDarreichungsformCode() {
-        return darreichungsformCode;
-    }
+	/**
+	 * Gets the value of the darreichungsformCode property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getDarreichungsformCode() {
+		return darreichungsformCode;
+	}
 
-    /**
-     * Sets the value of the darreichungsformCode property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setDarreichungsformCode(String value) {
-        this.darreichungsformCode = value;
-    }
+	/**
+	 * Sets the value of the darreichungsformCode property.
+	 * 
+	 * @param value allowed object is {@link String }
+	 * 
+	 */
+	public void setDarreichungsformCode(String value) {
+		this.darreichungsformCode = value;
+	}
 
-    /**
-     * Gets the value of the darreichungsformFreitext property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getDarreichungsformFreitext() {
-        return darreichungsformFreitext;
-    }
+	/**
+	 * Gets the value of the darreichungsformFreitext property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getDarreichungsformFreitext() {
+		return darreichungsformFreitext;
+	}
 
-    /**
-     * Sets the value of the darreichungsformFreitext property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setDarreichungsformFreitext(String value) {
-        this.darreichungsformFreitext = value;
-    }
+	/**
+	 * Sets the value of the darreichungsformFreitext property.
+	 * 
+	 * @param value allowed object is {@link String }
+	 * 
+	 */
+	public void setDarreichungsformFreitext(String value) {
+		this.darreichungsformFreitext = value;
+	}
 
-    /**
-     * Gets the value of the dosierschemaMorgens property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getDosierschemaMorgens() {
-        return dosierschemaMorgens;
-    }
+	/**
+	 * Gets the value of the dosierschemaMorgens property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getDosierschemaMorgens() {
+		return dosierschemaMorgens;
+	}
 
-    /**
-     * Sets the value of the dosierschemaMorgens property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setDosierschemaMorgens(String value) {
-        this.dosierschemaMorgens = value;
-    }
+	/**
+	 * Sets the value of the dosierschemaMorgens property.
+	 * 
+	 * @param value allowed object is {@link String }
+	 * 
+	 */
+	public void setDosierschemaMorgens(String value) {
+		this.dosierschemaMorgens = value;
+	}
 
-    /**
-     * Gets the value of the dosierschemaMittags property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getDosierschemaMittags() {
-        return dosierschemaMittags;
-    }
+	/**
+	 * Gets the value of the dosierschemaMittags property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getDosierschemaMittags() {
+		return dosierschemaMittags;
+	}
 
-    /**
-     * Sets the value of the dosierschemaMittags property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setDosierschemaMittags(String value) {
-        this.dosierschemaMittags = value;
-    }
+	/**
+	 * Sets the value of the dosierschemaMittags property.
+	 * 
+	 * @param value allowed object is {@link String }
+	 * 
+	 */
+	public void setDosierschemaMittags(String value) {
+		this.dosierschemaMittags = value;
+	}
 
-    /**
-     * Gets the value of the dosierschemaAbends property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getDosierschemaAbends() {
-        return dosierschemaAbends;
-    }
+	/**
+	 * Gets the value of the dosierschemaAbends property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getDosierschemaAbends() {
+		return dosierschemaAbends;
+	}
 
-    /**
-     * Sets the value of the dosierschemaAbends property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setDosierschemaAbends(String value) {
-        this.dosierschemaAbends = value;
-    }
+	/**
+	 * Sets the value of the dosierschemaAbends property.
+	 * 
+	 * @param value allowed object is {@link String }
+	 * 
+	 */
+	public void setDosierschemaAbends(String value) {
+		this.dosierschemaAbends = value;
+	}
 
-    /**
-     * Gets the value of the dosierschemaNachts property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getDosierschemaNachts() {
-        return dosierschemaNachts;
-    }
+	/**
+	 * Gets the value of the dosierschemaNachts property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getDosierschemaNachts() {
+		return dosierschemaNachts;
+	}
 
-    /**
-     * Sets the value of the dosierschemaNachts property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setDosierschemaNachts(String value) {
-        this.dosierschemaNachts = value;
-    }
+	/**
+	 * Sets the value of the dosierschemaNachts property.
+	 * 
+	 * @param value allowed object is {@link String }
+	 * 
+	 */
+	public void setDosierschemaNachts(String value) {
+		this.dosierschemaNachts = value;
+	}
 
-    /**
-     * Gets the value of the dosierschemaFreitext property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getDosierschemaFreitext() {
-        return dosierschemaFreitext;
-    }
+	/**
+	 * Gets the value of the dosierschemaFreitext property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getDosierschemaFreitext() {
+		return dosierschemaFreitext;
+	}
 
-    /**
-     * Sets the value of the dosierschemaFreitext property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setDosierschemaFreitext(String value) {
-        this.dosierschemaFreitext = value;
-    }
+	/**
+	 * Sets the value of the dosierschemaFreitext property.
+	 * 
+	 * @param value allowed object is {@link String }
+	 * 
+	 */
+	public void setDosierschemaFreitext(String value) {
+		this.dosierschemaFreitext = value;
+	}
 
-    /**
-     * Gets the value of the dosiereinheitCode property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getDosiereinheitCode() {
-        return dosiereinheitCode;
-    }
+	/**
+	 * Gets the value of the dosiereinheitCode property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getDosiereinheitCode() {
+		return dosiereinheitCode;
+	}
 
-    /**
-     * Sets the value of the dosiereinheitCode property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setDosiereinheitCode(String value) {
-        this.dosiereinheitCode = value;
-    }
+	/**
+	 * Sets the value of the dosiereinheitCode property.
+	 * 
+	 * @param value allowed object is {@link String }
+	 * 
+	 */
+	public void setDosiereinheitCode(String value) {
+		this.dosiereinheitCode = value;
+	}
 
-    /**
-     * Gets the value of the dosiereinheitFreitext property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getDosiereinheitFreitext() {
-        return dosiereinheitFreitext;
-    }
+	/**
+	 * Gets the value of the dosiereinheitFreitext property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getDosiereinheitFreitext() {
+		return dosiereinheitFreitext;
+	}
 
-    /**
-     * Sets the value of the dosiereinheitFreitext property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setDosiereinheitFreitext(String value) {
-        this.dosiereinheitFreitext = value;
-    }
+	/**
+	 * Sets the value of the dosiereinheitFreitext property.
+	 * 
+	 * @param value allowed object is {@link String }
+	 * 
+	 */
+	public void setDosiereinheitFreitext(String value) {
+		this.dosiereinheitFreitext = value;
+	}
 
-    /**
-     * Gets the value of the hinweise property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getHinweise() {
-        return hinweise;
-    }
+	/**
+	 * Gets the value of the hinweise property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getHinweise() {
+		return hinweise;
+	}
 
-    /**
-     * Sets the value of the hinweise property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setHinweise(String value) {
-        this.hinweise = value;
-    }
+	/**
+	 * Sets the value of the hinweise property.
+	 * 
+	 * @param value allowed object is {@link String }
+	 * 
+	 */
+	public void setHinweise(String value) {
+		this.hinweise = value;
+	}
 
-    /**
-     * Gets the value of the behandlungsgrund property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getBehandlungsgrund() {
-        return behandlungsgrund;
-    }
+	/**
+	 * Gets the value of the behandlungsgrund property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getBehandlungsgrund() {
+		return behandlungsgrund;
+	}
 
-    /**
-     * Sets the value of the behandlungsgrund property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setBehandlungsgrund(String value) {
-        this.behandlungsgrund = value;
-    }
+	/**
+	 * Sets the value of the behandlungsgrund property.
+	 * 
+	 * @param value allowed object is {@link String }
+	 * 
+	 */
+	public void setBehandlungsgrund(String value) {
+		this.behandlungsgrund = value;
+	}
 
-    /**
-     * Gets the value of the zusatzzeile property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getZusatzzeile() {
-        return zusatzzeile;
-    }
+	/**
+	 * Gets the value of the zusatzzeile property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getZusatzzeile() {
+		return zusatzzeile;
+	}
 
-    /**
-     * Sets the value of the zusatzzeile property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setZusatzzeile(String value) {
-        this.zusatzzeile = value;
-    }
+	/**
+	 * Sets the value of the zusatzzeile property.
+	 * 
+	 * @param value allowed object is {@link String }
+	 * 
+	 */
+	public void setZusatzzeile(String value) {
+		this.zusatzzeile = value;
+	}
 
 }
