@@ -19,8 +19,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import de.htwg.gib.egkterminal.logic.GatewayTransmitter;
 import de.htwg.gib.egkterminal.model.CipherObject;
+import de.htwg.gib.egkterminal.persistence.GatewayTransmitter;
 
 class GatewayTransmitterMockTest {
 

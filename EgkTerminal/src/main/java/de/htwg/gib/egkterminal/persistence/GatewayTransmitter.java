@@ -1,4 +1,4 @@
-package de.htwg.gib.egkterminal.logic;
+package de.htwg.gib.egkterminal.persistence;
 
 import java.io.IOException;
 import java.net.URI;

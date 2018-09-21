@@ -31,12 +31,16 @@ import de.htwg.gib.egkterminal.config.PropertyConfig;
 import de.htwg.gib.egkterminal.logging.Logging;
 import de.htwg.gib.egkterminal.logic.CryptoController;
 import de.htwg.gib.egkterminal.logic.EgkInterpreter;
-import de.htwg.gib.egkterminal.logic.GatewayTransmitter;
 import de.htwg.gib.egkterminal.logic.QRCodeGenerator;
 import de.htwg.gib.egkterminal.model.CipherObject;
 import de.htwg.gib.egkterminal.model.Egk;
+import de.htwg.gib.egkterminal.persistence.GatewayTransmitter;
 
 public class QrCodeViewController {
+
+	static {
+		System.setProperty("file.encoding", "UTF-8");
+	}
 
 	private static PropertyConfig propertyConfig;
 	static {
