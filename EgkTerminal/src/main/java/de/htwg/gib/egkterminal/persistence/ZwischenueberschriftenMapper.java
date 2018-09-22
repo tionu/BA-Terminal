@@ -33,7 +33,7 @@ public class ZwischenueberschriftenMapper {
 
 	public String getUeberschrift(String code) {
 		return zwischenueberschriftKodierungen.stream()
-				.filter(zwischenueberschrift -> code.equals(zwischenueberschrift.getCode()))
+				.filter(zwischenueberschrift -> code.equalsIgnoreCase(zwischenueberschrift.getCode()))
 				.map(Zwischenueberschrift::getUeberschrift).findAny().orElse("");
 	}
 

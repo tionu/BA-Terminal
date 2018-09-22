@@ -32,12 +32,12 @@ public class DosiereinheitenMapper {
 	}
 
 	public String getEinheit(String code) {
-		return dosiereinheitKodierungen.stream().filter(dosiereinheit -> code.equals(dosiereinheit.getCode()))
+		return dosiereinheitKodierungen.stream().filter(dosiereinheit -> code.equalsIgnoreCase(dosiereinheit.getCode()))
 				.map(Dosiereinheit::getEinheit).findAny().orElse("");
 	}
 
 	public String getBedeutung(String code) {
-		return dosiereinheitKodierungen.stream().filter(dosiereinheit -> code.equals(dosiereinheit.getCode()))
+		return dosiereinheitKodierungen.stream().filter(dosiereinheit -> code.equalsIgnoreCase(dosiereinheit.getCode()))
 				.map(Dosiereinheit::getBedeutung).findAny().orElse("");
 	}
 

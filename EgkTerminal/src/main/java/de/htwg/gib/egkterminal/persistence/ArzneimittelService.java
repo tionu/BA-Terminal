@@ -30,8 +30,9 @@ public class ArzneimittelService {
 	}
 
 	public Arzneimittel getArzneimittel(String pharmazentralnummer) {
-		return arzneimittelListe.stream().filter(arznei -> pharmazentralnummer.equals(arznei.getPharmazentralnummer()))
-				.findAny().orElse(null);
+		return arzneimittelListe.stream()
+				.filter(arznei -> pharmazentralnummer.equalsIgnoreCase(arznei.getPharmazentralnummer())).findAny()
+				.orElse(null);
 	}
 
 }

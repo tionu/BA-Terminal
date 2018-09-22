@@ -65,10 +65,10 @@ public class MedikationsplanProvider {
 			block.getMedikationFreitextRezeptur().stream().filter(item -> (item instanceof Medikation))
 					.collect(Collectors.toSet()).forEach(item -> {
 						Medikation medikation = (Medikation) item;
-						decodeDosiereinheit(medikation);
-						decodeDarreichungsform(medikation);
 						try {
 							decodePharmazentralnummer(medikation);
+							decodeDosiereinheit(medikation);
+							decodeDarreichungsform(medikation);
 						} catch (NoSuchElementException e) {
 							block.getMedikationFreitextRezeptur().remove(item);
 						}
@@ -88,21 +88,23 @@ public class MedikationsplanProvider {
 			List<Wirkstoff> wirkstoffe = arzneimittel.getArzneistoffe().stream()
 					.map(arzneistoff -> convertToWirkstoff(arzneistoff)).collect(Collectors.toList());
 			medikation.getWirkstoff().addAll(wirkstoffe);
+			if (medikation.getDarreichungsformCode() == null && medikation.getDarreichungsformFreitext() == null) {
+				medikation.setDarreichungsformFreitext(
+						darreichungsformen.getBezeichnungIFA(arzneimittel.getDarreichungsformcode()));
+			}
 		}
 	}
 
 	private void decodeDarreichungsform(Medikation medikation) {
-		if (medikation.getDarreichungsformCode() != null) {
+		if (medikation.getDarreichungsformCode() != null && medikation.getDarreichungsformFreitext() == null) {
 			medikation.setDarreichungsformFreitext(
 					darreichungsformen.getBezeichnungIFA(medikation.getDarreichungsformCode()));
-			medikation.setDarreichungsformCode(null);
 		}
 	}
 
 	private void decodeDosiereinheit(Medikation medikation) {
-		if (medikation.getDosiereinheitCode() != null) {
+		if (medikation.getDosiereinheitCode() != null && medikation.getDosiereinheitFreitext() == null) {
 			medikation.setDosiereinheitFreitext(dosiereinheiten.getEinheit(medikation.getDosiereinheitCode()));
-			medikation.setDosiereinheitCode(null);
 		}
 	}
 

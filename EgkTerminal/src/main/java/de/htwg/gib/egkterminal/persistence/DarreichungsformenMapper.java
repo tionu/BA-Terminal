@@ -32,12 +32,14 @@ public class DarreichungsformenMapper {
 	}
 
 	public String getForm(String code) {
-		return darreichungsformKodierungen.stream().filter(darreichungsform -> code.equals(darreichungsform.getCode()))
+		return darreichungsformKodierungen.stream()
+				.filter(darreichungsform -> code.equalsIgnoreCase(darreichungsform.getCode()))
 				.map(Darreichungsform::getForm).findAny().orElse("");
 	}
 
 	public String getBezeichnungIFA(String code) {
-		return darreichungsformKodierungen.stream().filter(darreichungsform -> code.equals(darreichungsform.getCode()))
+		return darreichungsformKodierungen.stream()
+				.filter(darreichungsform -> code.equalsIgnoreCase(darreichungsform.getCode()))
 				.map(Darreichungsform::getBezeichnungIFA).findAny().orElse("");
 	}
 
