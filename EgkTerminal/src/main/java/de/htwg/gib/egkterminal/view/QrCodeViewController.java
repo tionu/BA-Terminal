@@ -124,7 +124,6 @@ public class QrCodeViewController {
 					UUID uuid = gatewayTransmitter.post(cipherObject);
 
 					String accessToken = uuid.toString() + Base64.getEncoder().encodeToString(key);
-					log.info("accessToken=" + accessToken);
 					URI qrCodeUri = new URIBuilder(appServer).setFragment(accessToken).build();
 					qrCode = new ImageIcon(QRCodeGenerator.createQRImage(qrCodeUri.toString()));
 
